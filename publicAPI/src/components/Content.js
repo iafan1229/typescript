@@ -1,33 +1,31 @@
-import React, {useEffect, useState} from 'react'
-import axios from 'axios'
+import React, {useEffect, useState, useRef} from 'react'
 
 
-function Content() {
-  const API_KEY = "hHFlg8hDKmDzntSCM5lXVvu0hDNxN2wfWpf6xW639epN%2BUsYij87f6v%2B81JfHAWPGhXHWgccWUMnK7yfcsQdcw%3D%3D";
-  const url = `http://apis.data.go.kr/4640000/jeonjurestaurant/v1/getAllList?serviceKey=${API_KEY}&pageSize=30&currPage=1`;
+function Content({data, data2}) {
+  const red = useRef(null)
 
-  const [data, setData] = useState(null);
-
-  useEffect(()=>{
-    axios.get(url).then((res)=>{
-      setData(res.data.body.shopList)
-      console.log(res.data.body.shopList)
-    })
-  },[])
+  const handleAddress = (el) => {
+    if(data2) {
+      const regex = "완산"
+      return el.infoList[0].roadAddr;
+    }else{
+      return el.infoList[0].roadAddr
+    }
+  }
+  
 
   return (
     <>
       <div id="wrap">
         <ul className="list">
-          {data && data.map((el,idx)=>{
+          {(data2 || data)?.map((el,idx)=>{
             return (
               <li>
                 <span className="img-wrap"><img src={el.shopImageList[0].path} alt="" /></span>
-                <h2>{el.infoList[0].name}</h2>
-                <h3>{el.infoList[0].roadAddr}</h3>
+                <h2>상호명: {el.infoList[0].name}</h2>
+                <h3 ref={red}>주소: {handleAddress(el)}</h3>
                 <h4>메뉴판</h4>
                 <ul className='menu'>
-                  
                   {el.menuImageList.map((el2,idx)=>{
                     return (idx===0) && <li><span><img src={el2.path} alt="메뉴판"></img></span></li>
                   })}
@@ -40,5 +38,10 @@ function Content() {
     </>
   )
 }
+
+Content.defaultProps = {
+  data: []
+}
+
 
 export default Content
