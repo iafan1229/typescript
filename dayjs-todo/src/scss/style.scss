@@ -9,9 +9,16 @@ li{
 }
 a{
   text-decoration:none;
+  color:rgb(92, 91, 91);
 }
 
 img {
   max-width: 100%;
 }
 
+
+#wrap {
+  padding-top:30px;
+  display: flex;
+  justify-content: center;
+}

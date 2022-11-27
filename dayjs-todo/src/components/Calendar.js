@@ -1,8 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components';
-import List from './List';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
-function Calendar() {
+function Calendar({setListDate}) {
+  const navi = useNavigate();
+  const loca = useLocation()
+
+
   // import
   const dayjs = require('dayjs');
 
@@ -18,6 +23,10 @@ function Calendar() {
 
 
   const today = dayjs();
+
+  useEffect(()=>{
+    setListDate(today.format('YYYYMMDD'));
+  },[])
 
   const [viewDate, setViewDate] = useState(dayjs());
   const [selectDate, setSelectDate] = useState(dayjs());
@@ -41,13 +50,18 @@ function Calendar() {
             //안 나오면 none 처리
             let isNone = current.format('MM') === viewDate.format('MM') ? '' : 'none';
 
-           
-
+            
+            
             return (
               <>
-                <div className={`box`} key={`${week}_${i}`} >
+                <div className={`box`} key={`${week}_${i}`} onClick={()=>{
+                  setListDate(current.format('YYYYMMDD'))
+                  navi(`/list/${current.format('YYYYMMDD')}`)
+                }} >
                   <div className={`text ${isSelected} ${isToday} ${isNone}`} onClick={() => { setSelectDate(current) }}>
-                    <span className={`day`}>{current.format('D')}</span>
+                    <span className={`day`}>
+                      {current.format('D')}
+                    </span>
                     {isToday ? (<span className="isToday">오늘</span>)
                       : isSelected ? (<span className="isSelected"></span>) : null}
                   </div>
@@ -95,11 +109,7 @@ function Calendar() {
             </div>
           </StyledBody>
         </Wrap>
-        <WrapContent>
-          <h1>{selectDate.format('YYYY-MM-DD')}</h1>
-          <button>추가하기</button>
-          <List date={selectDate.format('YYYY-MM-DD')} />
-        </WrapContent>
+        
       </Todo>
     </>
   )
@@ -115,10 +125,7 @@ const Todo = styled.div`
 const Wrap = styled.div`
   width: 400px;
 `
-const WrapContent = styled(Wrap)`
-  padding: 20px;
-  border: 1px solid #eee;
-`
+
 const StyledHeader = styled.div`
   display: flex;
   justify-content: center;
