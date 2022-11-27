@@ -17,22 +17,15 @@ function Header({setData, data, setWord, setData2}) {
 
   return (
     <header>
-      <h1>전주 맛집 리스트 TOP 30</h1>
+      <h1>전라북도 맛집 리스트 TOP 30</h1>
       <div>
         <ul>  
           <li><button onClick={handleTotal}>모두보기</button></li>
-          {["완산","덕진"].map(el=>{
+          {["완산구","덕진구"].map(el=>{
             return <li><button onClick={()=>handleData(data, el)}>{el}</button></li>
           })}
-          {/* <li><button>모두보기</button></li>
-          <li><button onClick={()=>handleData(data)}>완산구</button></li>
-          <li><button>덕진구</button></li> */}
         </ul>
-        <select name="" id="">
-          <option value="">10개씩 보기</option>
-          <option value="">20개씩 보기</option>
-          <option value="">모두 보기</option>
-        </select>
+        
       </div>
     </header>
   )

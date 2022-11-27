@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { Route, Routes } from 'react-router-dom';
 import Header from "./components/Header";
 import Content from "./components/Content";
+import Footer from './components/Footer';
 import axios from 'axios'
 import '../src/scss/style.scss'
 
@@ -26,6 +27,7 @@ function App() {
     <>
       <Header data={data} setData={setData} setData2={setData2}></Header>
       <Content data={data} data2={data2}></Content>
+      <Footer></Footer>
     </>
   );
 }
