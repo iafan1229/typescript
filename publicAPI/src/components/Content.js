@@ -1,9 +1,10 @@
 import React, {useEffect, useState, useRef} from 'react'
 import Pagination from './Pagination';
-
+import Popup from './Popup';
+import {Link} from 'react-router-dom';
 
 function Content({data, data2}) {
-  const red = useRef(null)
+  let [popup, setPopup] = useState(false);
 
   const [posts, setPosts] = useState([]);
   const [limit, setLimit] = useState(10)
@@ -24,7 +25,6 @@ function Content({data, data2}) {
   //     return el.infoList[0].roadAddr
   //   }
   // }
-  
 
   return (
     <>
@@ -41,15 +41,21 @@ function Content({data, data2}) {
           {posts.slice(offset, offset+limit).map((el,idx)=>{
             return (
               <li>
-                <span className="img-wrap"><img src={el.shopImageList[0].path} alt="" /></span>
-                <h2>상호명: {el.infoList[0].name}</h2>
-                <h3 ref={red}>주소: {el.infoList[0].roadAddr}</h3>
-                <h4>메뉴판</h4>
-                <ul className='menu'>
-                  {el.menuImageList.map((el2,idx)=>{
-                    return (idx===0) && <li><span><img src={el2.path} alt="메뉴판"></img></span></li>
-                  })}
-                </ul>
+                 <Link to={`/popup/${idx+1}`} 
+                 state={{
+                  title: el
+                 }}>
+                  <span className="img-wrap"><img src={el.shopImageList[0].path} alt="" /></span>
+                  <h2>상호명: {el.infoList[0].name}</h2>
+                  <h3>주소: {el.infoList[0].roadAddr}</h3>
+                  <h4>메뉴판</h4>
+                  <ul className='menu'>
+                    {el.menuImageList.map((el2,idx)=>{
+                      return (idx===0) && <li><span><img src={el2.path} alt="메뉴판"></img></span></li>
+                    })}
+                  </ul>
+                 </Link>
+               
               </li>
             )
           })}
@@ -64,6 +70,8 @@ function Content({data, data2}) {
           </Pagination>
         </div>
       </div>
+
+      {/* {popup ?  <Popup setPopup={setPopup}></Popup> : null} */}
     </>
   )
 }

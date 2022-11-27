@@ -77,14 +77,19 @@ header {
   gap: 30px;
   flex-flow: wrap row;
   > li {
+    a {
+      color: #000;
+    }
     flex-basis: calc(100%/4 - 70px);
-    
+   
     padding: 20px;
     background: rgb(252, 232, 255);
     border-radius: 10px;
     transition: all 0.5s;
+    cursor:pointer;
     &:hover {
       background-color: rgb(255, 233, 181);
+      
     }
     h2,h3, h4{font-size: 16px; padding:5px 0;font-weight:500;}
     h4{padding: 10px 0;margin-top: 10px;border-top: 1px solid rgb(174, 85, 188)}
@@ -115,3 +120,56 @@ header {
   } 
 }
 
+.popup {
+  position: fixed;
+  top:0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,.5);
+  text-align: center;
+  .detail {
+    > span {
+      display: block;
+      width: 300px;
+      margin:0 auto;
+      img {
+        width: 100%;
+      }
+    }
+    ul {
+      display: flex;
+      justify-content: space-around;
+      li {
+        flex-basis: 100px;
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 50vw;
+    height: 80vh;
+    background: #fff;
+    display: flex;
+    flex-flow:column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    .detail {
+      padding-bottom:30px;
+    }
+  }
+}
+
+.popDetail {
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: 10;
+}
