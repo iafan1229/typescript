@@ -24,6 +24,12 @@ router.post('/read', (req, res)=>{
   })
 })
 
+router.post('/readAll', (req, res)=>{
+  Post.find().exec().then(doc=>{
+    res.status(200).json({success:true, list: doc})
+  })
+})
+
 router.post('/edit', (req, res)=>{
   
   Post.updateOne({title: req.body.title}, {$set: {

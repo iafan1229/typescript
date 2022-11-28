@@ -17,7 +17,7 @@ const WrapContent = styled.div`
     }
   `
 
-function List({listDate}) {
+function List({listDate, setChecked}) {
 	const [comment, setComment] = useState('');
   const [todo, setTodo] = useState(null)
 
@@ -46,7 +46,6 @@ function List({listDate}) {
 
   useEffect(()=>{
     axios.post('/api/read', {date:listDate}).then((res)=>{
-      console.log(res.data.list)
       setTodo(res.data.list)
     })
   },[listDate])
@@ -61,7 +60,7 @@ function List({listDate}) {
         <ul className='todolist'>
           {todo && todo.map((el,idx)=>{
             return (
-              <li>
+              <li key={idx}>
                 <p>{idx+1}. {el.content}</p>
               </li>
             )

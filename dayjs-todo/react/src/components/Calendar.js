@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 
-function Calendar({setListDate}) {
+function Calendar({setListDate, checked}) {
   const navi = useNavigate();
   const loca = useLocation()
 
+  const [color, setColor]= useState([])
 
   // import
   const dayjs = require('dayjs');
@@ -27,6 +28,20 @@ function Calendar({setListDate}) {
   useEffect(()=>{
     setListDate(today.format('YYYYMMDD'));
   },[])
+
+  useEffect(()=>{
+    if(checked){
+      setColor(checked.map((el,idx)=>{
+        if(checked.indexOf(el)===idx)
+        return el.date
+      }))
+    }
+    
+  },[checked])
+
+  useEffect(()=>{
+    
+  },[color])
 
   const [viewDate, setViewDate] = useState(dayjs());
   const [selectDate, setSelectDate] = useState(dayjs());
@@ -49,21 +64,22 @@ function Calendar({setListDate}) {
             let isToday = today.format('YYYYMMDD') === current.format('YYYYMMDD') ? 'today' : '';
             //안 나오면 none 처리
             let isNone = current.format('MM') === viewDate.format('MM') ? '' : 'none';
-
-            
-            
+            let colored = (color.includes(current.format('YYYYMMDD'))) ? 'marked' : '';
+            let len = (arr, el) => arr.filter(v => v === el).length;
+          
             return (
               <>
                 <div className={`box`} key={`${week}_${i}`} onClick={()=>{
                   setListDate(current.format('YYYYMMDD'))
                   navi(`/list/${current.format('YYYYMMDD')}`)
                 }} >
-                  <div className={`text ${isSelected} ${isToday} ${isNone}`} onClick={() => { setSelectDate(current) }}>
+                  <div className={`text ${colored} ${isSelected} ${isToday} ${isNone}`} onClick={() => { setSelectDate(current) }}>
                     <span className={`day`}>
                       {current.format('D')}
                     </span>
                     {isToday ? (<span className="isToday">오늘</span>)
                       : isSelected ? (<span className="isSelected"></span>) : null}
+                    {len(color, current.format('YYYYMMDD')) ?  <span className='diarylen'>{len(color, current.format('YYYYMMDD'))}</span> : null}
                   </div>
                 </div >
               </>
@@ -99,8 +115,8 @@ function Calendar({setListDate}) {
             <button onClick={() => changegeMonth(viewDate, 'add')}>&gt;</button>
           </StyledHeader>
           <StyledBody>
-            <div className="row week">
-              {['일','월','화','수','목','금','토'].map(el=>{
+            <div className="row week calendartitle">
+              {['일','월','화','수','목','금','토'].map((el,idx)=>{
                 return <div className="box"><span className="text">{el}</span></div>
               })}
             </div>
@@ -131,6 +147,7 @@ const StyledHeader = styled.div`
   justify-content: center;
   align-content: center;
   margin: 20px;
+  
   button {
     border: none;
     background: #fff;
@@ -150,26 +167,31 @@ const StyledBody = styled.div`
   text-align: center;
   margin: 20px;
   .row{
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
     width: 100%;
+    &.calendartitle {
+      background: #e5c7ff;
+      color:#fff;
+    }
   }
   .row.week{
     height: 18px;
     border-bottom: 1px solid #E8E8E8;
   }
   .box{
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     margin: 6px 6px;
     font-size: 14px;
   }
   .text{
     position: static;
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     color: #292929;
   }
   .holiday,
@@ -182,12 +204,12 @@ const StyledBody = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
   }
   .selected{
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background : deeppink;
     font-weight: 700;
