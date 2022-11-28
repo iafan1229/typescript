@@ -1,0 +1,175 @@
+@font-face {
+	font-family: 'BMJUA';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+*{
+  margin:0;
+  padding:0;
+  font-family: 'BMJUA';
+}
+li{
+  list-style:none;
+}
+a{
+  text-decoration:none;
+}
+
+img {
+  max-width: 100%;
+}
+
+button {
+    display: inline-block;
+    background: transparent;
+    border: none;
+    border: 2px solid deeppink;
+    color:#fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 20px;
+    transition: all 0.2s;
+    cursor:pointer;
+    &:hover {
+      background:deeppink;
+    }
+}
+
+#wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+header {
+    display:flex;
+    justify-content: space-around;
+    align-items:center;
+    height: 10vh;
+    background-color: black;
+    color: #fff;
+    > div {
+        display: flex;
+        ul{
+            display: flex;
+            li {
+                margin-right:10px;
+                
+            }
+        }
+    }
+}
+
+.selectWrap{
+  padding: 0 30px;
+  padding-top: 30px;
+  select {
+    height: 30px;
+  }
+}
+
+.list {
+  padding: 30px;
+  display:flex;
+  gap: 30px;
+  flex-flow: wrap row;
+  > li {
+    a {
+      color: #000;
+    }
+    flex-basis: calc(100%/4 - 70px);
+   
+    padding: 20px;
+    background: rgb(252, 232, 255);
+    border-radius: 10px;
+    transition: all 0.5s;
+    cursor:pointer;
+    &:hover {
+      background-color: rgb(255, 233, 181);
+      
+    }
+    h2,h3, h4{font-size: 16px; padding:5px 0;font-weight:500;}
+    h4{padding: 10px 0;margin-top: 10px;border-top: 1px solid rgb(174, 85, 188)}
+    > .img-wrap {
+      display: inline-block;
+      max-width: 300px;
+      height: 300px;
+      > img {
+        width: 100%;
+        height: 100%;
+      }
+
+    }
+    ul.menu{
+      display: flex;
+      gap: 5px;
+      li {
+        span {
+          display: block;
+          width: 100px;
+        }
+        img {
+          width: 100%;
+        }
+        
+      }
+    }
+  } 
+}
+
+.popup {
+  position: fixed;
+  top:0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,.5);
+  text-align: center;
+  .detail {
+    > span {
+      display: block;
+      width: 300px;
+      margin:0 auto;
+      img {
+        width: 100%;
+      }
+    }
+    ul {
+      display: flex;
+      justify-content: space-around;
+      li {
+        flex-basis: 100px;
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 50vw;
+    height: 80vh;
+    background: #fff;
+    display: flex;
+    flex-flow:column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    .detail {
+      padding-bottom:30px;
+    }
+  }
+}
+
+.popDetail {
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: 10;
+}
