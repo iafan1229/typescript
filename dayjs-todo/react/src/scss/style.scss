@@ -22,3 +22,23 @@ img {
   display: flex;
   justify-content: center;
 }
+
+.todolist {
+  li {
+    padding-top:10px;
+  }
+}
+
+.add {
+  margin-left: 10px;
+  background: deeppink;
+  border: none;
+  padding: 10px;
+  border-radius:10px;
+  color:#fff;
+  transition: all 0.2s;
+  cursor:pointer;
+  &:hover {
+    background:black;
+  }
+}

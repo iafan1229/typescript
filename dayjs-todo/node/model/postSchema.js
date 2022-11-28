@@ -1,11 +1,17 @@
 const mongoose = require('mongoose')
 
 const postSchema = new mongoose.Schema({
-	todo: String,
-  dataNum: Number
+	content: {
+    type: String,
+    required: true
+  },
+  date: {
+    type: String,
+    required: true
+  }
 },
-{collection: 'diary'})
+{collection: 'Diary'})
 
-const Post = mongoose.model('Post', postSchema)
+const Post = mongoose.model('Diary', postSchema)
 
 module.exports = { Post }

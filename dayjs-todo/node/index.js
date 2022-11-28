@@ -25,4 +25,4 @@ app.get('/', (req, res) => {
 });
 
 //전용 라우터 호출
-app.use('/api/community', require('./router/community.js'));
+app.use('/api', require('./router/community.js'));

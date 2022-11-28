@@ -5,8 +5,8 @@ const { Post } = require('../model/postSchema')
 
 router.post('/write', (req, res)=> {
   const save = new Post({
-      title: req.body.title,
-      comment: req.body.comment
+      content: req.body.content,
+      date: req.body.date
     })
     
     save.save()
@@ -19,7 +19,7 @@ router.post('/write', (req, res)=> {
 })
 
 router.post('/read', (req, res)=>{
-  Post.find().exec().then(doc=>{
+  Post.find({"date":req.body.date}).exec().then(doc=>{
     res.status(200).json({success:true, list: doc})
   })
 })
