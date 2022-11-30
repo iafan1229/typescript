@@ -6,13 +6,11 @@ import {Link} from 'react-router-dom';
 function Calendar({setListDate, checked}) {
   const path = process.env.PUBLIC_URL;
   const navi = useNavigate();
-  const loca = useLocation()
 
   const [color, setColor]= useState([])
 
   // import
   const dayjs = require('dayjs');
-
   const weekday = require('dayjs/plugin/weekday');
   const isoWeek = require('dayjs/plugin/isoWeek');
   const weekOfYear = require('dayjs/plugin/weekOfYear');
@@ -40,9 +38,6 @@ function Calendar({setListDate, checked}) {
     
   },[checked])
 
-  useEffect(()=>{
-    
-  },[color])
 
   const [viewDate, setViewDate] = useState(dayjs());
   const [selectDate, setSelectDate] = useState(dayjs());
@@ -57,9 +52,9 @@ function Calendar({setListDate, checked}) {
         <div className="row" key={week}>
           {Array(7).fill(0).map((n, i) => {
             let current = viewDate.startOf('week').week(week).add(n + i, 'day');
-            if (viewDate.format('MM') === '12') {
-              current = viewDate.startOf('week').week(week - 52).add(n + i, 'day');
-            }
+            // if (viewDate.format('YYYY') === '12') {
+            //   current = viewDate.startOf('week').week(week - 52).add(n + i, 'day');
+            // }
             // 현재 날짜 (기준)
             let isSelected = selectDate.format('YYYYMMDD') === current.format('YYYYMMDD') ? 'selected' : '';
             let isToday = today.format('YYYYMMDD') === current.format('YYYYMMDD') ? 'today' : '';
@@ -71,6 +66,7 @@ function Calendar({setListDate, checked}) {
             return (
               <>
                 <div className={`box`} key={`${week}_${i}`} onClick={()=>{
+                  console.log(current.format('YYYYMMDD'))
                   setListDate(current.format('YYYYMMDD'))
                   navi(`/list/${current.format('YYYYMMDD')}`)
                 }} >
@@ -99,7 +95,7 @@ function Calendar({setListDate, checked}) {
       case 'add':
         return setViewDate(viewDate.add(1, 'month'))
       case 'subtract':
-        return setViewDate(viewDate.add(-1, 'month'))
+        return setViewDate(viewDate.subtract(1, 'month'))
       default:
         return date;
     }

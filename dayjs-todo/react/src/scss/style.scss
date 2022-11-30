@@ -101,10 +101,13 @@ header {
   padding-top: 10vh;
   font-family: sans-serif;
   text-align: center;
+  h3 {
+    padding-bottom:20px;
+  }
 }
 
 .wrapper {
-  width: 800px;
+  width: 900px;
   margin:0 auto;
   height: 300px;
   position: relative;

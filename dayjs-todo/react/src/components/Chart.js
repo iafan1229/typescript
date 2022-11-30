@@ -1,25 +1,32 @@
 import React, {useState, useEffect} from 'react'
 import { ResponsiveLine } from "@nivo/line";
-import { data, data2 } from './data.js';
+
+// Import Swiper React components
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 
 function Chart({checked}) {
-  const [graphData, setGraphData] = useState([{
+  const [graphData, setGraphData] = useState(Array(5).fill({
     "id": "line1",
     "color": "hsl(43, 70%, 50%)",
-  }]);
+  }));
 
   const [xaxis, setXaxis] = useState([])
-  const [yaxis, setYaxis] = useState([])
 
   useEffect(()=>{
 
     if(checked) {
       setXaxis(checked.map((el)=>{
-        console.log(el.date)
-        let year = el.date.substring(0,4)
-        let month = el.date.substring(4,6)
-        let day = el.date.substring(6,10)
+        let year = el.date.substring(0,4);
+        let month = el.date.substring(4,6);
+        let day = el.date.substring(6,10);
   
         return `${year}-${month}-${day}`
       }))
@@ -44,14 +51,25 @@ function Chart({checked}) {
         "y" : values[idx]
       }
     })
-    console.log(answer)
+
+    let slide = {'2022-11':null,'2022-12':null,'2023-01':null,'2023-02':null,'2023-03':null}
+    
+    let a = Object.keys(slide)?.map(el=>{
+      return answer.filter(el2=>{
+        return el2.x.substring(0,7)===el
+      })
+    })
+
+    // console.log(answer)
+    // console.log(a)
+    
 
     setGraphData(
-      graphData.map((item,idx)=>{
+      graphData.map((item,index)=>{
         return (
           {
             ...item,
-            data: [...answer]
+            data: [...a[index]]
           }
         )
       })
@@ -59,8 +77,8 @@ function Chart({checked}) {
   },[xaxis])
 
   useEffect(()=>{
-    
-  },[])
+    console.log(graphData)
+  },[graphData])
 
 
   const line1Color = "#663399";
@@ -68,21 +86,41 @@ function Chart({checked}) {
     <div className="chart">
       <div className="wrapper">
         <h3>투두리스트 차트</h3>
-          <div className="graphContainer">
-            {graphData && (
-              <ResponsiveLine
-                data={graphData}
-                colors={[line1Color]}
-                axisLeft={{
-                  legend: "포스팅 횟수",
-                  legendPosition: "middle",
-                  legendOffset: -40,
-                  tickValues: [0,1,2,3,4,5]
-                }}
-                margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
-              />
-            )}
-        </div>
+        <Swiper style={{height:"300px"}}
+          modules={[Navigation, Pagination, Scrollbar, A11y]}
+          spaceBetween={50}
+          slidesPerView={1}
+          navigation
+          pagination={{ clickable: true }}
+          onSlideChange={() => console.log('slide change')}
+          onSwiper={(swiper) => console.log(swiper)}
+        >
+          {graphData && graphData.map((el,idx)=>{
+            if(el?.data?.length)
+            return (
+              <SwiperSlide> 
+                <h2 style={{fontSize:"16px"}}>{el.data[0].x.substring(0,7)}</h2>
+                <div className="graphContainer">
+                {graphData && (
+                  <ResponsiveLine
+                  data={[graphData[idx]]}
+                  colors={[line1Color]}
+                  axisLeft={{
+                    legend: "포스팅 횟수",
+                    legendPosition: "middle",
+                    legendOffset: -40,
+                    tickValues: [0,1,2,3,4,5]
+                  }}
+                  margin={{ top: 50, right: 100, bottom: 50, left: 100 }}
+                  />
+                )}
+                </div>
+              </SwiperSlide>
+            )
+          })}
+        </Swiper>
+
+       
       </div>
     </div>
   )
