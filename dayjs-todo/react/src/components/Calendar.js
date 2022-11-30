@@ -4,6 +4,7 @@ import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 
 function Calendar({setListDate, checked}) {
+  const path = process.env.PUBLIC_URL;
   const navi = useNavigate();
   const loca = useLocation()
 
@@ -110,9 +111,9 @@ function Calendar({setListDate, checked}) {
       <Todo>
         <Wrap>
           <StyledHeader>
-            <button onClick={() => changegeMonth(viewDate, 'subtract')}>&lt;</button>
+            <button onClick={() => changegeMonth(viewDate, 'subtract')}><img src={`${path}/next.png`} alt=""/></button>
             <span className="thisMonth">{viewDate.format("YYYY")}년{viewDate.format("MM")}월</span>
-            <button onClick={() => changegeMonth(viewDate, 'add')}>&gt;</button>
+            <button onClick={() => changegeMonth(viewDate, 'add')}><img src={`${path}/next.png`} alt=""/></button>
           </StyledHeader>
           <StyledBody>
             <div className="row week calendartitle">
@@ -149,12 +150,22 @@ const StyledHeader = styled.div`
   margin: 20px;
   
   button {
+    &:nth-of-type(1) {
+      img {
+        transform: rotateY(180deg);
+      }
+    }
+    width: 30px;
+    height: 30px;
     border: none;
     background: #fff;
     color: deeppink;
     cursor:pointer;
     padding:0 5px;
     font-size: 18px;
+    img {
+      width: 100%;
+    }
   }
   .thisMonth{
     font-weight: 700;

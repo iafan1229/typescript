@@ -18,9 +18,12 @@ const WrapContent = styled.div`
   `
 
 function List({listDate, setChecked}) {
+  const path = process.env.PUBLIC_URL;
+  const loca = useLocation()
+  const navi = useNavigate();
+
 	const [comment, setComment] = useState('');
   const [todo, setTodo] = useState(null)
-
   
 
   const handleChange = (e) => {
@@ -37,11 +40,28 @@ function List({listDate, setChecked}) {
 			if (res) {
 				alert('데이터 저장에 성공했습니다');
 				console.log(res);
+        window.location.replace("/")
 			}
 		}).catch(function (error) {
       // handle error
       console.dir(error);
     })
+    
+  }
+
+  const handleKeyDown = (e) => {
+    if(e.key === 'Enter') {
+      handleSubmit(e)
+    }
+  }
+
+  const handleDelete = (el) => {
+    const result = window.confirm('정말로 삭제하시겠습니까? ');
+		if (!result) return;
+		axios.post('/api/delete', { content: el.content }).then((res) => {
+			console.log(res);
+		}).catch(err=>console.log(err));
+		window.location.replace("/")
   }
 
   useEffect(()=>{
@@ -54,7 +74,7 @@ function List({listDate, setChecked}) {
       <WrapContent>
         <h1>{listDate && listDate.substring(0,4)+"년 "+listDate.substring(4,6)+"월 "+listDate.substring(6,listDate.length)+"일"}</h1>
         <div>
-          <input type="text" value={comment} onChange={handleChange}/>
+          <input type="text" value={comment} onChange={handleChange} onKeyPress={handleKeyDown}/>
           <button className="add" onClick={handleSubmit}>추가하기</button>
         </div>
         <ul className='todolist'>
@@ -62,6 +82,7 @@ function List({listDate, setChecked}) {
             return (
               <li key={idx}>
                 <p>{idx+1}. {el.content}</p>
+                <button onClick={()=>handleDelete(el)}><img src={`${path}/delete.png`} alt=""/></button>
               </li>
             )
           })}

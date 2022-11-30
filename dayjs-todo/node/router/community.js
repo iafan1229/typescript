@@ -44,19 +44,20 @@ router.post('/edit', (req, res)=>{
   })
 })
 
-router.post('/update', (req, res)=>{
-  const temp = {
-    title: req.body.title,
-    comment: req.body.comment
-  }
-  Post.updateOne({dataNum: Number(req.body.dataNum)}, {$set: temp})
-  .then(()=>{
-    res.status(200).json({success:true})
-  })
-})
+// router.post('/update', (req, res)=>{
+//   const temp = {
+//     title: req.body.title,
+//     comment: req.body.comment
+//   }
+//   Post.updateOne({dataNum: Number(req.body.dataNum)}, {$set: temp})
+//   .then(()=>{
+//     res.status(200).json({success:true})
+//   })
+// })
 
 router.post('/delete', (req,res)=>{
-  Post.deleteOne({dataNum: Number(req.body.dataNum)})
+  console.log(req.body)
+  Post.deleteOne({content: req.body.content})
   .exec().then(()=>{
     res.status(200).json({success:true})
   })
