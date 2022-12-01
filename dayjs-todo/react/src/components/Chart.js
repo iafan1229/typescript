@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import { ResponsiveLine } from "@nivo/line";
 
 // Import Swiper React components
@@ -12,13 +12,39 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 
-function Chart({checked}) {
+function Chart({checked, listDate}) {
   const [graphData, setGraphData] = useState(Array(5).fill({
     "id": "line1",
     "color": "hsl(43, 70%, 50%)",
   }));
 
   const [xaxis, setXaxis] = useState([])
+  const num = useRef(0)
+
+  useEffect(()=>{
+    if(listDate && num) {
+      switch (listDate.substring(4,6)) {
+        case '11':
+          num.current = 1; 
+          break;
+        case '12':
+          num.current = 2; 
+          break;
+        case '1':
+          num.current = 3; 
+          break;
+        case '2':
+          num.current = 4; 
+          break;
+        case '3':
+          num.current = 5; 
+          break;
+        default: 
+          num.current = 1;
+      }
+    }
+    console.log(num.current)
+  },[listDate, num])
 
   useEffect(()=>{
 
@@ -76,9 +102,6 @@ function Chart({checked}) {
     )
   },[xaxis])
 
-  useEffect(()=>{
-    console.log(graphData)
-  },[graphData])
 
 
   const line1Color = "#663399";
@@ -86,39 +109,40 @@ function Chart({checked}) {
     <div className="chart">
       <div className="wrapper">
         <h3>투두리스트 차트</h3>
-        <Swiper style={{height:"300px"}}
-          modules={[Navigation, Pagination, Scrollbar, A11y]}
-          spaceBetween={50}
-          slidesPerView={1}
-          navigation
-          pagination={{ clickable: true }}
-          onSlideChange={() => console.log('slide change')}
-          onSwiper={(swiper) => console.log(swiper)}
-        >
-          {graphData && graphData.map((el,idx)=>{
-            if(el?.data?.length)
-            return (
-              <SwiperSlide> 
-                <h2 style={{fontSize:"16px"}}>{el.data[0].x.substring(0,7)}</h2>
-                <div className="graphContainer">
-                {graphData && (
-                  <ResponsiveLine
-                  data={[graphData[idx]]}
-                  colors={[line1Color]}
-                  axisLeft={{
-                    legend: "포스팅 횟수",
-                    legendPosition: "middle",
-                    legendOffset: -40,
-                    tickValues: [0,1,2,3,4,5]
-                  }}
-                  margin={{ top: 50, right: 100, bottom: 50, left: 100 }}
-                  />
-                )}
-                </div>
-              </SwiperSlide>
-            )
-          })}
-        </Swiper>
+        {num.current>=1 && listDate && (
+          <Swiper style={{height:"300px"}}
+            modules={[Navigation, Pagination, Scrollbar, A11y]}
+            spaceBetween={50}
+            slidesPerView={1}
+            navigation
+            pagination={{ clickable: true }}
+            initialSlide={num.current}
+          >
+            {graphData && graphData.map((el,idx)=>{
+              if(el?.data?.length)
+              return (
+                <SwiperSlide key={idx}> 
+                  <h2 style={{fontSize:"16px"}}>{el.data[0].x.substring(0,7)}</h2>
+                  <div className="graphContainer">
+                  {graphData && (
+                    <ResponsiveLine
+                    data={[graphData[idx]]}
+                    colors={[line1Color]}
+                    axisLeft={{
+                      legend: "포스팅 횟수",
+                      legendPosition: "middle",
+                      legendOffset: -40,
+                      tickValues: [0,1,2,3,4,5]
+                    }}
+                    margin={{ top: 50, right: 100, bottom: 50, left: 100 }}
+                    />
+                  )}
+                  </div>
+                </SwiperSlide>
+              )
+            })}
+          </Swiper>
+        )}
 
        
       </div>
