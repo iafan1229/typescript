@@ -190,6 +190,7 @@ const StyledBody = styled.div`
     border-bottom: 1px solid #E8E8E8;
   }
   .box{
+    position: relative;
     width: 40px;
     height: 40px;
     margin: 6px 6px;
@@ -214,19 +215,56 @@ const StyledBody = styled.div`
     width: 40px;
     height: 40px;
   }
+
   .selected{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background : deeppink;
-    font-weight: 700;
-    color: #fff;
+    position:relative;
+    &::before{
+      z-index: -1;
+      position: absolute;
+      top:50%;
+      left:50%;
+      transform: translate(-50%,-50%);
+      content:'';
+      display:block;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: rgba(242, 255, 0,0.7);
+      font-weight:bold;
+    }
   }
   .today{
-    border-radius: 50%;
-    font-weight: 500;
-    /* color: pink; */
-    background : deeppink;
+    &::before{
+      z-index: -2;
+      position: absolute;
+      top:50%;
+      left:50%;
+      transform: translate(-50%,-50%);
+      content:'';
+      display:block;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: rgba(107, 231, 224, 0.6);;
+      font-weight:bold;
+    }
+    &.selected{
+    position:relative;
+    &::before{
+      z-index: -1;
+      position: absolute;
+      top:50%;
+      left:50%;
+      transform: translate(-50%,-50%);
+      content:'';
+      display:block;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: rgba(242, 255, 0,0.5);
+      font-weight:bold;
+    }
+  }
   }
   .isSelected{
     position: relative;
@@ -235,10 +273,13 @@ const StyledBody = styled.div`
     font-weight: 400;
   }
   .isToday{
+    display:block;
+    margin-top:-8px;
     position: relative;
     color: #292929;
     font-size: 10px;
     font-weight: 400;
+    padding-bottom:3px;
   }
   .none{
     color:#E8E8E8;

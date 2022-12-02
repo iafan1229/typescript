@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getAuth, signOut } from 'firebase/auth';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
-
+import { useSelector, useDispatch } from 'react-redux';
 import firebase from './firebase';
 
 
-function HeaderLogin() {
+function HeaderLogin({setLoginState}) {
+  const dispatch = useDispatch();
   const navi = useNavigate()
   const auth = getAuth();
 
@@ -14,6 +15,7 @@ function HeaderLogin() {
 			.then(() => {
 				// Sign-out successful.
 				alert('로그아웃이 성공적으로 이루어졌습니다.');
+        dispatch({ type: 'SET_HEADER', payload: false });
 				navi('/');
 			})
 			.catch((error) => {

@@ -2,9 +2,10 @@ import React, {useState, useEffect} from 'react'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import firebase from './firebase';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-function Header() {
-  
+function Header({setLoginState}) {
+  const dispatch = useDispatch();
   const auth = getAuth();
   const navi = useNavigate();
   const [email, setEmail] = useState('');
@@ -22,7 +23,8 @@ function Header() {
       // Signed in 
       const user = userCredential.user;
       console.log(user)
-      navi('/login')
+      dispatch({ type: 'SET_HEADER', payload: user });
+      navi('/')
       // ...
     })
     .catch((error) => {
@@ -33,6 +35,11 @@ function Header() {
     });
 
 	};
+
+
+  useEffect(()=>{
+    
+  },[])
 
   return (
     <header>

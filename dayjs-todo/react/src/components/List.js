@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
 
 const WrapContent = styled.div`
     width: 400px;
@@ -18,6 +19,10 @@ const WrapContent = styled.div`
   `
 
 function List({listDate, setChecked}) {
+  const header = useSelector(
+		(state) => state.headerReducer.header
+	);
+
   const path = process.env.PUBLIC_URL;
   const loca = useLocation()
   const navi = useNavigate();
@@ -32,6 +37,7 @@ function List({listDate, setChecked}) {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
+    if(!header) return alert('관리자만 게시글을 쓸수 있어요!')
     const data = {
 			content:comment,
 			date:listDate,
@@ -56,6 +62,7 @@ function List({listDate, setChecked}) {
   }
 
   const handleDelete = (el) => {
+    if(!header) return alert('관리자만 게시글을 지울수 있어요!')
     const result = window.confirm('정말로 삭제하시겠습니까? ');
 		if (!result) return;
 		axios.post('/api/delete', { content: el.content }).then((res) => {
