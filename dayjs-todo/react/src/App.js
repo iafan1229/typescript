@@ -7,13 +7,11 @@ import React, {useState, useEffect, createContext} from 'react'
 import axios from 'axios';
 import Chart from './components/Chart';
 import HeaderLogin from "./components/HeaderLogin";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export const dataContext = createContext(null);
 
 function App() {
-  
-
   
   const [listDate, setListDate] = useState(0);
   const [checked, setChecked] = useState(null)
@@ -33,7 +31,6 @@ function App() {
     })
   },[])
 
-  
   return (
     <>
       <h1 style={{textAlign:"center","fontSize":"20px",paddingTop:"20px"}}>치맥녀의 투두리스트</h1>
@@ -41,17 +38,15 @@ function App() {
       <Routes>
           <Route path='*' element={ !header ? <Header/> : <HeaderLogin/>}></Route>
       </Routes>
-      
       <dataContext.Provider value={listDate}>
         <div id="wrap">
-          <Calendar setListDate={setListDate} checked={checked}/>
-          <Routes>
-              <Route path='/' element={<List />}></Route>
-              <Route path='/list/:date' element={<List/>} />            
-          </Routes>
+            <Calendar setListDate={setListDate} checked={checked}/>
+              <Routes>
+                  <Route path='/' element={<List />}></Route>
+                  <Route path='/list/:date' element={<List/>} />            
+              </Routes> 
         </div>
-        
-        <Chart checked={checked}/>
+        <Chart checked={checked}/>   
       </dataContext.Provider>
     </>
   );

@@ -15,6 +15,9 @@ import 'swiper/css/scrollbar';
 function Chart({checked}) {
   const listDate = useContext(dataContext)
 
+  useEffect(()=>{
+    console.log(listDate)
+  })
   const [graphData, setGraphData] = useState(Array(5).fill({
     "id": "line1",
     "color": "hsl(43, 70%, 50%)",

@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 function Calendar({setListDate, checked}) {
-  
 
   const path = process.env.PUBLIC_URL;
   const navi = useNavigate();
@@ -25,15 +24,12 @@ function Calendar({setListDate, checked}) {
 
   const today = dayjs();
 
-  const todayData = useCallback(()=>{
-    setListDate(today.format('YYYYMMDD'));
-  },[setListDate, today])
-
   useEffect(()=>{
-    todayData()
-  },[todayData])
+    setListDate(today.format('YYYYMMDD'));
+  },[])
 
-  const checkData = useCallback(()=>{
+  
+  const check = useCallback(()=>{
     if(checked){
       setColor(checked.map((el,idx)=>{
         if(checked.indexOf(el)===idx)
@@ -44,8 +40,8 @@ function Calendar({setListDate, checked}) {
   },[checked])
 
   useEffect(()=>{
-    checkData()
-  },[checkData])
+    check()
+  },[check])
 
 
   const [viewDate, setViewDate] = useState(dayjs());
@@ -74,12 +70,12 @@ function Calendar({setListDate, checked}) {
           
             return (
               <>
-                <div className={`box`} key={`${week}_${i}`} onClick={()=>{
-                  console.log(current.format('YYYYMMDD'))
-                  setListDate(current.format('YYYYMMDD'))
-                  navi(`/list/${current.format('YYYYMMDD')}`)
-                }} >
-                  <div className={`text ${colored} ${isSelected} ${isToday} ${isNone}`} onClick={() => { setSelectDate(current) }}>
+                <div className={`box`} key={`${week}_${i}`}>
+                  <div className={`text ${colored} ${isSelected} ${isToday} ${isNone}`} onClick={() => {
+                    setSelectDate(current) 
+                    setListDate(current.format('YYYYMMDD'))
+                    navi(`/list/${current.format('YYYYMMDD')}`)
+                  }}>
                     <span className={`day`}>
                       {current.format('D')}
                     </span>
@@ -97,7 +93,7 @@ function Calendar({setListDate, checked}) {
     }
     
     return calendar;
-  },[viewDate, selectDate, setListDate, color, navi, today])
+  },[viewDate, selectDate, color, navi, today, setListDate, setSelectDate])
 
   const changegeMonth = (date, changeString) => {
     switch (changeString) {
