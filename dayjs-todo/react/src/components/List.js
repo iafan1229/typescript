@@ -1,9 +1,9 @@
-import React from 'react'
+import React , {useContext} from 'react'
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { dataContext } from '../App';
 
 const WrapContent = styled.div`
     width: 400px;
@@ -18,15 +18,14 @@ const WrapContent = styled.div`
     }
   `
 
-function List({listDate, setChecked}) {
+function List() {
+  const listDate = useContext(dataContext)
+
   const header = useSelector(
 		(state) => state.headerReducer.header
 	);
 
   const path = process.env.PUBLIC_URL;
-  const loca = useLocation()
-  const navi = useNavigate();
-
 	const [comment, setComment] = useState('');
   const [todo, setTodo] = useState(null)
   

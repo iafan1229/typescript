@@ -3,12 +3,13 @@ import Calendar from "./components/Calendar";
 import List from "./components/List";
 import '../src/scss/style.scss';
 import {Routes, Route} from 'react-router-dom';
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, createContext} from 'react'
 import axios from 'axios';
 import Chart from './components/Chart';
 import HeaderLogin from "./components/HeaderLogin";
 import { useSelector, useDispatch } from 'react-redux';
 
+export const dataContext = createContext(null);
 
 function App() {
   
@@ -16,7 +17,6 @@ function App() {
   
   const [listDate, setListDate] = useState(0);
   const [checked, setChecked] = useState(null)
-  const [loginState, setLoginState] =useState(null)
 
   const header = useSelector(
 		(state) => state.headerReducer.header
@@ -40,17 +40,19 @@ function App() {
       
       <Routes>
           <Route path='*' element={ !header ? <Header/> : <HeaderLogin/>}></Route>
-         
       </Routes>
-      {/* <Calendar2/> */}
-      <div id="wrap">
-        <Calendar setListDate={setListDate} checked={checked}/>
-        <Routes>
-            <Route path='/' element={<List listDate={listDate} />}></Route>
-            <Route path='/list/:date' element={<List listDate={listDate}/>} />            
-        </Routes>
-      </div>
-      <Chart checked={checked} listDate={listDate}/>
+      
+      <dataContext.Provider value={listDate}>
+        <div id="wrap">
+          <Calendar setListDate={setListDate} checked={checked}/>
+          <Routes>
+              <Route path='/' element={<List />}></Route>
+              <Route path='/list/:date' element={<List/>} />            
+          </Routes>
+        </div>
+        
+        <Chart checked={checked}/>
+      </dataContext.Provider>
     </>
   );
 }

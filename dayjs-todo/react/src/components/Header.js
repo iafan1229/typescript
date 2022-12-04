@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {memo, useState, useEffect} from 'react'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import firebase from './firebase';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
@@ -22,24 +22,17 @@ function Header({setLoginState}) {
       alert('로그인 성공')
       // Signed in 
       const user = userCredential.user;
-      console.log(user)
       dispatch({ type: 'SET_HEADER', payload: user });
       navi('/')
       // ...
     })
     .catch((error) => {
       alert('유저를 찾을수 없습니다')
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage)
     });
 
 	};
 
 
-  useEffect(()=>{
-    
-  },[])
 
   return (
     <header>
@@ -54,4 +47,4 @@ function Header({setLoginState}) {
   )
 }
 
-export default Header
+export default memo(Header)

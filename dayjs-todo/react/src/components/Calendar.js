@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useMemo, useCallback} from 'react'
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import {Link} from 'react-router-dom';
 
 function Calendar({setListDate, checked}) {
+  
+
   const path = process.env.PUBLIC_URL;
   const navi = useNavigate();
 
@@ -24,11 +25,15 @@ function Calendar({setListDate, checked}) {
 
   const today = dayjs();
 
-  useEffect(()=>{
+  const todayData = useCallback(()=>{
     setListDate(today.format('YYYYMMDD'));
-  },[])
+  },[setListDate, today])
 
   useEffect(()=>{
+    todayData()
+  },[todayData])
+
+  const checkData = useCallback(()=>{
     if(checked){
       setColor(checked.map((el,idx)=>{
         if(checked.indexOf(el)===idx)
@@ -38,11 +43,15 @@ function Calendar({setListDate, checked}) {
     
   },[checked])
 
+  useEffect(()=>{
+    checkData()
+  },[checkData])
+
 
   const [viewDate, setViewDate] = useState(dayjs());
   const [selectDate, setSelectDate] = useState(dayjs());
 
-  const createCalendar = () => {
+  const createCalendar = useMemo(() => {
     const startWeek = viewDate.startOf('month').week();
     const endWeek = viewDate.endOf('month').week() === 1 ? 53 : viewDate.endOf('month').week();
     let calendar = [];
@@ -88,7 +97,7 @@ function Calendar({setListDate, checked}) {
     }
     
     return calendar;
-  }
+  },[viewDate, selectDate, setListDate, color, navi, today])
 
   const changegeMonth = (date, changeString) => {
     switch (changeString) {
@@ -118,7 +127,7 @@ function Calendar({setListDate, checked}) {
               })}
             </div>
             <div>
-              {createCalendar()}
+              {createCalendar}
             </div>
           </StyledBody>
         </Wrap>

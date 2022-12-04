@@ -1,6 +1,6 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {memo, useState, useEffect, useRef, useContext} from 'react'
 import { ResponsiveLine } from "@nivo/line";
-
+import { dataContext } from '../App';
 // Import Swiper React components
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,7 +12,9 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 
-function Chart({checked, listDate}) {
+function Chart({checked}) {
+  const listDate = useContext(dataContext)
+
   const [graphData, setGraphData] = useState(Array(5).fill({
     "id": "line1",
     "color": "hsl(43, 70%, 50%)",
@@ -85,9 +87,6 @@ function Chart({checked, listDate}) {
         return el2.x.substring(0,7)===el
       })
     })
-
-    // console.log(answer)
-    // console.log(a)
     
 
     setGraphData(
@@ -149,22 +148,4 @@ function Chart({checked, listDate}) {
     </div>
   )
 }
-const getColoredAxis = color => {
-  return {
-    axis: {
-      ticks: {
-        line: {
-          stroke: color
-        },
-        text: { fill: color }
-      },
-      legend: {
-        text: {
-          fill: color
-        }
-      }
-    }
-  };
-};
-
-export default Chart
+export default memo(Chart)

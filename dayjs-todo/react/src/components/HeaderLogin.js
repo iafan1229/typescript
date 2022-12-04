@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { memo } from 'react';
 import { getAuth, signOut } from 'firebase/auth';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import firebase from './firebase';
 
@@ -35,4 +35,4 @@ function HeaderLogin({setLoginState}) {
   )
 }
 
-export default HeaderLogin
+export default memo(HeaderLogin)
