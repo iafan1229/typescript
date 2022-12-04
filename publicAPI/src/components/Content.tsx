@@ -4,8 +4,15 @@ import Popup from './Popup';
 import {Link} from 'react-router-dom';
 import {dataContext} from './Main';
 
+interface Props {
+  data2: object[]
+}
+interface List {
+  path:string
+}
 
-function Content({data2}) {
+
+function Content({data2}:Props ) {
   const data = useContext(dataContext)
 
   
@@ -21,14 +28,6 @@ function Content({data2}) {
     }
   },[data, data2])
 
-  // const handleAddress = (el) => {
-  //   if(data2) {
-  //     const regex = "완산"
-  //     return el.infoList[0].roadAddr;
-  //   }else{
-  //     return el.infoList[0].roadAddr
-  //   }
-  // }
 
   return (
     <>
@@ -54,7 +53,7 @@ function Content({data2}) {
                   <h3>주소: {el.infoList[0].roadAddr}</h3>
                   <h4>메뉴판</h4>
                   <ul className='menu'>
-                    {el.menuImageList.map((el2,idx)=>{
+                    {el.menuImageList.map((el2:List,idx:number)=>{
                       return (idx===0) && <li><span><img src={el2.path} alt="메뉴판"></img></span></li>
                     })}
                   </ul>

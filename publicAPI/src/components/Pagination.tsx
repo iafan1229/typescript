@@ -1,8 +1,16 @@
 import styled from "styled-components";
-import React, {useCallback} from 'react'
+import React, {memo} from 'react'
+import { JSXElement } from "@babel/types";
 
+type Check = {
+  total: number,
+  limit:number,
+  page:number,
+  setPage:React.Dispatch<React.SetStateAction<number | null>>,
+  children: React.ReactNode;
+}
 
-function Pagination({ total, limit, page, setPage }) {
+function Pagination({ total, limit, page, setPage, children }:Check) {
   const numPages = Math.ceil(total / limit);
 
   return (
@@ -12,7 +20,7 @@ function Pagination({ total, limit, page, setPage }) {
           &lt;
         </Button>
         {Array(numPages)
-          .fill()
+          .fill(0)
           .map((_, i) => (
             <Button
               key={i + 1}
@@ -67,4 +75,4 @@ const Button = styled.button`
   }
 `;
 
-export default React.memo(Pagination);
+export default memo(Pagination);

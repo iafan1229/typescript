@@ -19,7 +19,7 @@ function Popup() {
           <p>주소: {loca.state.title.infoList[0].roadAddr}</p>
           <p style={{paddingTop:'20px'}}>메뉴판 자세히보기</p>
           <ul>
-            {loca.state.title.menuImageList.map((el,idx)=>{
+            {loca.state.title.menuImageList.map((el:{path:string},idx:number)=>{
               return <li onClick={()=>{
                 setShowMenu(true)
                 setIdx(idx)
@@ -31,7 +31,7 @@ function Popup() {
       </div>
       
     </div>
-    {showMenu ? <PopupDetail img={loca.state.title.menuImageList} setIdx={idx} setShowMenu={setShowMenu}/> : null}
+    {showMenu ? <PopupDetail img={loca.state.title.menuImageList} idx={idx} setShowMenu={setShowMenu}/> : null}
    </>
   )
 }

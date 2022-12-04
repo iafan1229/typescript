@@ -1,14 +1,29 @@
 import React, {useContext} from 'react'
 import {dataContext} from './Main';
 
-function Header({setData2}) {
+interface Prop {
+  setData2: React.Dispatch<React.SetStateAction<object[]|null>>;
+}
+
+interface Data {
+  ukey: string;
+  infoList: Info[];
+  shopImageList: object[];
+  menuImageList: object[];
+}
+interface Info {
+  roadAddr: string
+}
+
+function Header({setData2}:Prop){
   const data = useContext(dataContext)
 
   const handleTotal = () =>{
     setData2(null)
   }
 
-  const handleData = (data, name) => {
+  const handleData = (data:Data[], name:string) :void => {
+    console.log(data)
     const changed = data.filter(el=>{
       return el.infoList[0].roadAddr.includes(name)
     })
