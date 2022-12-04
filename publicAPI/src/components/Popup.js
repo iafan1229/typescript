@@ -4,7 +4,7 @@ import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import PopupDetail from './PopupDetail';
 
-function Popup({setPopup}) {
+function Popup() {
   const [showMenu, setShowMenu] = useState(false)
   const [idx, setIdx] = useState(0);
   const navi = useNavigate();

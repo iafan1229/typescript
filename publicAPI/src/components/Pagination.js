@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import React, {useCallback} from 'react'
+
 
 function Pagination({ total, limit, page, setPage }) {
   const numPages = Math.ceil(total / limit);
@@ -65,4 +67,4 @@ const Button = styled.button`
   }
 `;
 
-export default Pagination;
+export default React.memo(Pagination);

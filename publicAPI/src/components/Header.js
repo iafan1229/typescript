@@ -1,15 +1,15 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import {dataContext} from './Main';
 
-function Header({setData, data, setWord, setData2}) {
+function Header({setData2}) {
+  const data = useContext(dataContext)
 
-  const handleTotal = (e) => {
+  const handleTotal = () =>{
     setData2(null)
   }
 
   const handleData = (data, name) => {
-    
     const changed = data.filter(el=>{
-      console.log(name)
       return el.infoList[0].roadAddr.includes(name)
     })
     setData2(changed)
@@ -35,4 +35,4 @@ Header.defaultProps = {
   data: []
 }
 
-export default Header
+export default React.memo(Header)

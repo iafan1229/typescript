@@ -1,10 +1,14 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useState, useRef, useContext} from 'react'
 import Pagination from './Pagination';
 import Popup from './Popup';
 import {Link} from 'react-router-dom';
+import {dataContext} from './Main';
 
-function Content({data, data2}) {
-  let [popup, setPopup] = useState(false);
+
+function Content({data2}) {
+  const data = useContext(dataContext)
+
+  
 
   const [posts, setPosts] = useState([]);
   const [limit, setLimit] = useState(10)
@@ -71,7 +75,6 @@ function Content({data, data2}) {
         </div>
       </div>
 
-      {/* {popup ?  <Popup setPopup={setPopup}></Popup> : null} */}
     </>
   )
 }

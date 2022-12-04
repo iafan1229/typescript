@@ -1,7 +1,6 @@
 import React from 'react'
 
 function PopupDetail(props) {
-  // console.log(props)
   const {img, setIdx, setShowMenu} = props;
 
   console.log(img, setIdx)
