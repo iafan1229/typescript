@@ -11,13 +11,27 @@ import { useSelector } from 'react-redux';
 
 export const dataContext = createContext(null);
 
+
+interface ReducerType {
+  headerReducer: HeaderTypes
+}
+
+interface HeaderTypes {
+  header: object[]
+}
+
+interface Checked {
+  content: string,
+  date: string
+}
+
 function App() {
   
-  const [listDate, setListDate] = useState(0);
-  const [checked, setChecked] = useState(null)
+  const [listDate, setListDate] = useState<number>(0);
+  const [checked, setChecked] = useState<Checked[]>(null)
 
   const header = useSelector(
-		(state) => state.headerReducer.header
+		(state:ReducerType) => state.headerReducer.header
 	);
 
   useEffect(()=>{
@@ -33,7 +47,7 @@ function App() {
 
   return (
     <>
-      <h1 style={{textAlign:"center","fontSize":"20px",paddingTop:"20px"}}>치맥녀의 투두리스트</h1>
+      <h1 style={{textAlign:"center","fontSize":"20px",paddingTop:"20px"}}>이하영의 투두리스트</h1>
       
       <Routes>
           <Route path='*' element={ !header ? <Header/> : <HeaderLogin/>}></Route>

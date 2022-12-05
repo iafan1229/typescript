@@ -5,7 +5,7 @@ import storage from "redux-persist/lib/storage";
 //초기데이터를 state에 저장했다가
 //추후 action객체가 전달되면
 //action객체의 타입에 따라 기존 데이터를 변경해서 리턴
-const init = [];
+const init : object[] = [];
 const persistConfig = {
   key: "root",
   // localStorage에 저장합니다.
@@ -15,8 +15,13 @@ const persistConfig = {
   // blacklist -> 그것만 제외합니다
 };
 
+interface Action {
+	type: String,
+	payload: object[]
+}
 
-const headerReducer = (state = init, action) => {
+
+const headerReducer = (state=init, action:Action) => {
 	switch (action.type) {
 		case 'SET_HEADER':
 			return { ...state, header: action.payload };

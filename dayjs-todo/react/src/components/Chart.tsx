@@ -11,13 +11,17 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
+interface typeCheck{
+  checked: Date[]
+}
 
-function Chart({checked}) {
+type Date = {
+  date: string
+}
+
+function Chart({checked}:typeCheck) {
   const listDate = useContext(dataContext)
 
-  useEffect(()=>{
-    console.log(listDate)
-  })
   const [graphData, setGraphData] = useState(Array(5).fill({
     "id": "line1",
     "color": "hsl(43, 70%, 50%)",
@@ -48,7 +52,6 @@ function Chart({checked}) {
           num.current = 1;
       }
     }
-    console.log(num.current)
   },[listDate, num])
 
   useEffect(()=>{
@@ -66,9 +69,13 @@ function Chart({checked}) {
   },[checked])
 
 
+  interface Result {
+    [x:string]: number
+  }
+
   useEffect(()=>{
-    let result = {}
-    xaxis?.sort().forEach((x) => { 
+    let result:Result = {}
+    xaxis?.sort().forEach((x:number) => { 
       result[x] = (result[x] || 0)+1; 
     });
 
@@ -83,7 +90,11 @@ function Chart({checked}) {
       }
     })
 
-    let slide = {'2022-11':null,'2022-12':null,'2023-01':null,'2023-02':null,'2023-03':null}
+    interface Slide{
+      [x:string]:null
+    }
+
+    let slide:Slide = {'2022-11':null,'2022-12':null,'2023-01':null,'2023-02':null,'2023-03':null}
     
     let a = Object.keys(slide)?.map(el=>{
       return answer.filter(el2=>{

@@ -1,14 +1,14 @@
 import React, { memo } from 'react';
-import { getAuth, signOut } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import firebase from './firebase';
+import { useDispatch } from 'react-redux';
+import {auth1} from './firebase';
 
 
-function HeaderLogin({setLoginState}) {
+function HeaderLogin() {
   const dispatch = useDispatch();
   const navi = useNavigate()
-  const auth = getAuth();
+  const auth = auth1;
 
   const handleLogout = () => {
 		signOut(auth)

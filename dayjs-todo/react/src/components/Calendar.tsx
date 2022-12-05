@@ -1,13 +1,25 @@
+import { Dayjs } from 'dayjs';
 import React, {useState, useEffect, useMemo, useCallback} from 'react'
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-function Calendar({setListDate, checked}) {
+
+interface Checked {
+  content: string,
+  date: string
+}
+
+interface Calendar{
+  setListDate: React.Dispatch<React.SetStateAction<number | null>>,
+  checked: Checked[]
+}
+
+function Calendar({setListDate, checked}:Calendar) {
 
   const path = process.env.PUBLIC_URL;
   const navi = useNavigate();
 
-  const [color, setColor]= useState([])
+  const [color, setColor]= useState<string[]>([])
 
   // import
   const dayjs = require('dayjs');
@@ -28,13 +40,19 @@ function Calendar({setListDate, checked}) {
     setListDate(today.format('YYYYMMDD'));
   },[])
 
+  interface Obj {
+    content: string,
+    date: string
+  }
   
   const check = useCallback(()=>{
     if(checked){
-      setColor(checked.map((el,idx)=>{
+      setColor(checked.map((el:Obj,idx:number)=>{
+        console.log(el)
         if(checked.indexOf(el)===idx)
         return el.date
       }))
+
     }
     
   },[checked])
@@ -46,6 +64,7 @@ function Calendar({setListDate, checked}) {
 
   const [viewDate, setViewDate] = useState(dayjs());
   const [selectDate, setSelectDate] = useState(dayjs());
+
 
   const createCalendar = useMemo(() => {
     const startWeek = viewDate.startOf('month').week();
@@ -66,7 +85,7 @@ function Calendar({setListDate, checked}) {
             //안 나오면 none 처리
             let isNone = current.format('MM') === viewDate.format('MM') ? '' : 'none';
             let colored = (color.includes(current.format('YYYYMMDD'))) ? 'marked' : '';
-            let len = (arr, el) => arr.filter(v => v === el).length;
+            let len = (arr:string[], el:string) => arr.filter((v:string) => v === el).length;
           
             return (
               <>
@@ -95,7 +114,7 @@ function Calendar({setListDate, checked}) {
     return calendar;
   },[viewDate, selectDate, color, navi, today, setListDate, setSelectDate])
 
-  const changegeMonth = (date, changeString) => {
+  const changegeMonth = (date:Dayjs, changeString:string) => {
     switch (changeString) {
       case 'add':
         return setViewDate(viewDate.add(1, 'month'))

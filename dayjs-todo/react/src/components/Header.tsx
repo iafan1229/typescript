@@ -1,12 +1,12 @@
-import React, {memo, useState, useEffect} from 'react'
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import firebase from './firebase';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {memo, useState} from 'react'
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import {auth1} from './firebase';
 
-function Header({setLoginState}) {
+function Header() {
   const dispatch = useDispatch();
-  const auth = getAuth();
+  const auth = auth1;
   const navi = useNavigate();
   const [email, setEmail] = useState('');
 	const [pw1, setPw1] = useState('');

@@ -5,6 +5,19 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { dataContext } from '../App';
 
+interface ReducerType {
+  headerReducer: HeaderTypes
+}
+interface HeaderTypes {
+  header: object[]
+}
+
+interface Checked {
+  content: string,
+  date: string
+}
+
+
 const WrapContent = styled.div`
     width: 400px;
     padding: 20px;
@@ -22,20 +35,22 @@ function List() {
   const listDate = useContext(dataContext)
 
   const header = useSelector(
-		(state) => state.headerReducer.header
+		(state:ReducerType) => state.headerReducer.header
 	);
 
   const path = process.env.PUBLIC_URL;
 	const [comment, setComment] = useState('');
-  const [todo, setTodo] = useState(null)
+  const [todo, setTodo] = useState<Checked[]>(null)
   
+  useEffect(()=>{
+    console.log(todo)
+  })
 
-  const handleChange = (e) => {
+  const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setComment(e.target.value)
   }
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = () => {
     if(!header) return alert('관리자만 게시글을 쓸수 있어요!')
     const data = {
 			content:comment,
@@ -54,13 +69,13 @@ function List() {
     
   }
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e:React.KeyboardEvent<HTMLInputElement>) => {
     if(e.key === 'Enter') {
-      handleSubmit(e)
+      handleSubmit()
     }
   }
 
-  const handleDelete = (el) => {
+  const handleDelete = (el:Checked) => {
     if(!header) return alert('관리자만 게시글을 지울수 있어요!')
     const result = window.confirm('정말로 삭제하시겠습니까? ');
 		if (!result) return;
