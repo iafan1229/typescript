@@ -139,8 +139,10 @@ header {
     ul {
       display: flex;
       justify-content: space-around;
+      gap: 5px;
       li {
         flex-basis: 100px;
+        cursor:pointer;
         img {
           width: 100%;
         }
@@ -161,6 +163,7 @@ header {
     justify-content: center;
     align-items: center;
     padding: 20px;
+    border-radius:15px;
     .detail {
       padding-bottom:30px;
     }
@@ -172,4 +175,51 @@ header {
   top:0;
   left:0;
   z-index: 10;
+}
+
+@media screen and (max-width: 630px) {
+  header {
+    h1 {
+      font-size: 20px;
+    }
+  }
+  .list {
+    li {
+      flex-basis: calc(50% - 70px);
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .popup .detail > span {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 500px) {
+  header {
+    h1 {
+      font-size: 15px;
+    }
+    button {
+      font-size: 16px;
+    }
+  }
+  .popup .content{
+    width: 70vw;
+  }
+}
+@media screen and (max-width: 400px) {
+  header {
+    h1 {
+      font-size: 14px;
+    }
+    button {
+      font-size: 12px;
+    }
+  }
+  .list {
+    gap: 10px;
+    li {
+      flex-basis: auto;
+    }
+  }
 }

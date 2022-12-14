@@ -17,7 +17,7 @@ function Popup() {
           <span><img src={loca.state.title.shopImageList[0].path} alt="" /></span>
           <p>상호명: {loca.state.title.infoList[0].name}</p>
           <p>주소: {loca.state.title.infoList[0].roadAddr}</p>
-          <p style={{paddingTop:'20px'}}>메뉴판 자세히보기</p>
+          <p style={{padding:'20px 0'}}>메뉴판 자세히보기(클릭)</p>
           <ul>
             {loca.state.title.menuImageList.map((el:{path:string},idx:number)=>{
               return <li onClick={()=>{
