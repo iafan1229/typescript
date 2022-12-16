@@ -1,6 +1,6 @@
 
 <img src="https://postfiles.pstatic.net/MjAyMjEyMDVfMjI1/MDAxNjcwMjM3NzU2OTgx.-uz0nmC-qcul-z9KGhN5AFYkcu5aCvyzygTjRjAoBXog.NUXP3aBujTKt2aRJeR4Snx8wMF8J61O-Oy3GPMY6Suwg.GIF.home124/125.gif?type=w773">
-<a href="https://diary-iafan1229.koyeb.app/" about="blank">웹 애플리케이션 바로가기</a>
+<a href="https://diary-iafan1229.koyeb.app/" about="_blank">웹 애플리케이션 바로가기</a>
 
 <h1>Dayjs 다이어리</h1>
 <ul>
