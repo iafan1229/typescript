@@ -8,8 +8,10 @@
 <h1>프로젝트 구성 안내</h1>
 
 <h1>기술 스택</h1>
-* Frontend - Typescript, React, Redux
-* Backend - Node.js, Firebase, MongoDb
+<ul>
+  <li>Frontend - Typescript, React, Redux</li>
+  <li>Backend - Node.js, Firebase, MongoDb</li>
+</ul>
 
 <h1>주요 기능 설명</h1>
 1. 로그인
