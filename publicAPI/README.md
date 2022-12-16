@@ -1,5 +1,5 @@
 
-<img src="https://postfiles.pstatic.net/MjAyMjEyMDVfMjI1/MDAxNjcwMjM3NzU2OTgx.-uz0nmC-qcul-z9KGhN5AFYkcu5aCvyzygTjRjAoBXog.NUXP3aBujTKt2aRJeR4Snx8wMF8J61O-Oy3GPMY6Suwg.GIF.home124/125.gif?type=w773">
+<img src="https://postfiles.pstatic.net/MjAyMjExMjdfNzIg/MDAxNjY5NTI4NzM2Nzgw.aN63MSyo-gZ5yIjri9gxnW6b1UcURxHhHe_zy4YHU1kg.DzJ9dNwwxL26F7WGvzzBl4HVH6uSuUA41I2KQDYyso0g.GIF.home124/0.gif?type=w773">
 <a href="https://diary-iafan1229.koyeb.app/" about="_blank">웹 애플리케이션 바로가기</a>
 
 <h1>맛집 리스트 출력</h1>
