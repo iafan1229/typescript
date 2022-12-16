@@ -39,3 +39,8 @@
   <li>글 추가시 차트에 자동으로, 차트의 개수에 추가</li>
   <li>Swiper 슬라이드 적용으로 매월 달력 개수 확인 가능</li>
 </ul> 
+<h2>리액트 최적화 및 전역 처리</h2>
+<ul>
+  <li>useCallback, useMemo, React.memo로 메모이제이션 처리 </li>
+  <li>Context API로 데이터 전역처리</li>
+</ul>
