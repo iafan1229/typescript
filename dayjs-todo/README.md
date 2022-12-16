@@ -7,11 +7,11 @@
 
 <h1>프로젝트 구성 안내</h1>
 
-<h2>기술 스택</h2>
+<h1>기술 스택</h1>
 * Frontend - Typescript, React, Redux
 * Backend - Node.js, Firebase, MongoDb
 
-<h2>주요 기능 설명</h2>
+<h1>주요 기능 설명</h1>
 1. 로그인
 * 관리자 권한으로 로그인 / 로그아웃 기능 (test@iafan.com / 1234로 테스트 가능합니다)
 * 로그인 시에 글 생성, 글 삭제 가능하게 CRUD 처리
